@@ -21,8 +21,8 @@ const Dashboard = () => {
          <Text style={styles.weather}>Słonecznie</Text>
        </View>
        <View style={styles.followingDatsContainer}>
-         {FOLLOWING_DAY.map((item) => (
-             <FollowingDay key={item.name} {...item} />
+         {FOLLOWING_DAY.map((item, index) => (
+             <FollowingDay key={item.name} {...item} isLast={index === FOLLOWING_DAY.length -1} />
          ))}
        </View>
      </View>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: COLORS.lightBlue,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 40,
     borderRadius: 10,
   }
 });

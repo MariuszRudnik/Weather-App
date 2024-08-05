@@ -3,9 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { COLORS } from '../themes/colors';
 
-const FollowingDay = ({ name, value }) => {
+
+const FollowingDay = ({ name, value, isLast }) => {
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, !isLast && styles.separator]}>
       <Text style={[styles.content]}>{name}</Text>
       <Text style={[styles.content, styles.value]}>{value}</Text>
       <Feather name="sun" size={40} style={[styles.content, styles.type]} />
@@ -34,5 +35,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: COLORS.sun,
   },
+  separator:{
+    borderBottomWidth: 1,
+    borderColor: COLORS.backgroundColor
+  }
 
 });
