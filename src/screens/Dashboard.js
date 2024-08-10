@@ -11,6 +11,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { COLORS } from '../themes/colors';
 import FollowingDay from '../components/FollowingDay';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
+import Footer from '../components/Footer';
 
 const FOLLOWING_DAY = [
   { name: 'Dzisiaj', temperature: '22 ℃', value: 22, type: 'sun' },
@@ -59,13 +60,14 @@ const Dashboard = () => {
         <View style={styles.followingDatsContainer}>
           {follwoingDays.forecast.forecastday.map((item, index, allDays) => (
             <FollowingDay
-              key={item.data}
+              key={item.date}
               {...item}
               isLast={index === allDays.length - 1}
             />
           ))}
         </View>
       </View>
+      <Footer />
     </ScrollView>
   );
 };
