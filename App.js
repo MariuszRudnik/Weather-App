@@ -5,6 +5,7 @@ import Dashboard from "./src/screens/Dashboard";
 import {COLORS} from "./src/themes/colors";
 
 export default function App() {
+
   return (
     <SafeAreaProvider>
       <StatusBar style='light' />

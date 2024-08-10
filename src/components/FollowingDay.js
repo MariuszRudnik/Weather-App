@@ -3,12 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import { COLORS } from '../themes/colors';
 
-
-const FollowingDay = ({ name, value, isLast }) => {
+const FollowingDay = ({ date, day, isLast }) => {
   return (
     <View style={[styles.container, !isLast && styles.separator]}>
-      <Text style={[styles.content]}>{name}</Text>
-      <Text style={[styles.content, styles.value]}>{value}</Text>
+      <Text style={[styles.content]}>{date}</Text>
+      <Text style={[styles.content, styles.value]}>
+        {Math.floor(day.mintemp_c)} ℃ - {Math.floor(day.maxtemp_c)} ℃
+      </Text>
       <Feather name="sun" size={40} style={[styles.content, styles.type]} />
     </View>
   );
@@ -35,9 +36,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: COLORS.sun,
   },
-  separator:{
+  separator: {
     borderBottomWidth: 1,
-    borderColor: COLORS.backgroundColor
-  }
-
+    borderColor: COLORS.backgroundColor,
+  },
 });
