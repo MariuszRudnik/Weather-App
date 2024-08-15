@@ -5,10 +5,17 @@ import { COLORS } from '../themes/colors';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import isToday from 'dayjs/plugin/isToday';
+import { Day, ForecastDay } from '../types/api';
 
 dayjs.extend(isToday);
 
-const FollowingDay = ({ date, day, isLast }) => {
+interface Props {
+  date: string;
+  day: Day;
+  isLast: boolean;
+}
+
+const FollowingDay = ({ date, day, isLast }: Props) => {
   console.log(date);
   const formattedDate = dayjs(date).isToday()
     ? 'Dzisiaj'

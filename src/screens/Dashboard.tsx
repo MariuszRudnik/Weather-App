@@ -12,6 +12,7 @@ import { COLORS } from '../themes/colors';
 import FollowingDay from '../components/FollowingDay';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
+import { CityData, FollowingDayInterface } from '../types/api';
 
 const FOLLOWING_DAY = [
   { name: 'Dzisiaj', temperature: '22 ℃', value: 22, type: 'sun' },
@@ -20,8 +21,9 @@ const FOLLOWING_DAY = [
 ];
 
 const Dashboard = () => {
-  const [current, setCurrent] = useState(null);
-  const [follwoingDays, setFollwojngDays] = useState(null);
+  const [current, setCurrent] = useState<null | CityData>(null);
+  const [follwoingDays, setFollwojngDays] =
+    useState<null | FollowingDayInterface>(null);
 
   useEffect(() => {
     const init = async () => {
