@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import isToday from 'dayjs/plugin/isToday';
 import { Day, ForecastDay } from '../types/api';
+import ListItem from './ListItem';
 
 dayjs.extend(isToday);
 
@@ -21,17 +22,12 @@ const FollowingDay = ({ date, day, isLast }: Props) => {
     ? 'Dzisiaj'
     : dayjs(date).locale('pl').format('dddd');
   return (
-    <View style={[styles.container, !isLast && styles.separator]}>
-      <Text style={[styles.content]}>{formattedDate}</Text>
-      <Text style={[styles.content, styles.value]}>
-        {Math.floor(day.mintemp_c)} ℃ - {Math.floor(day.maxtemp_c)} ℃
-      </Text>
-      <Image
-        source={{ uri: `https:${day.condition.icon}` }}
-        width={40}
-        height={40}
-      />
-    </View>
+    <ListItem
+      isLast={isLast}
+      title={formattedDate}
+      condition={day.condition.icon}
+      value={` ${Math.floor(day.mintemp_c)} ℃ - ${Math.floor(day.maxtemp_c)} ℃`}
+    />
   );
 };
 
