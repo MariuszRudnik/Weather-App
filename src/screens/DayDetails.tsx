@@ -60,17 +60,26 @@ const DayDetails = () => {
           </Text>
         </View>
       }
-      renderItem={({ item: hour, index }) => (
-        <View>
-          <ListItem
-            key={hour.time}
-            isLast={index === day.hour.length - 1}
-            title={hour.time}
-            value={hour.temp_c}
-            condition={hour.condition.icon}
-          />
-        </View>
-      )}
+      renderItem={({ item: hour, index }) => {
+        const isLast = index === day.hour.length - 1;
+        return (
+          <View
+            style={[
+              styles.item,
+              index === 0 && styles.firstItem,
+              isLast && styles.lastItem,
+            ]}
+          >
+            <ListItem
+              key={hour.time}
+              isLast={index === day.hour.length - 1}
+              title={hour.time}
+              value={hour.temp_c}
+              condition={hour.condition.icon}
+            />
+          </View>
+        );
+      }}
     />
   );
 };
@@ -97,12 +106,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: COLORS.text,
   },
-  listContainer: {
+  item: {
     backgroundColor: COLORS.lightBlue,
-    marginTop: 40,
     marginHorizontal: 20,
-    borderRadius: 20,
     paddingHorizontal: 20,
-    paddingVertical: 10,
+  },
+  firstItem: {
+    marginTop: 40,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 10,
+  },
+  lastItem: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    paddingBottom: 10,
   },
 });

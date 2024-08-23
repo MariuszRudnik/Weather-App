@@ -1,20 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import Dashboard from './src/screens/Dashboard';
+import LocationDetails from './src/screens/LocationDetails';
 import { COLORS } from './src/themes/colors';
 import Footer from './src/components/Footer';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import DayDetails from './src/screens/DayDetails';
+import React from 'react';
+import Root from './src/navigation/Root';
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: COLORS.backgroundColor,
+  },
+};
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <StatusBar style="light" />
-      <SafeAreaView style={styles.container}>
-        {/*<Dashboard />*/}
-        <DayDetails />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <NavigationContainer theme={MyTheme}>
+      <SafeAreaProvider>
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.container}>
+          <Root />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 }
 

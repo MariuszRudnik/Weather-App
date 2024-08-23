@@ -20,7 +20,7 @@ const FOLLOWING_DAY = [
   { name: 'Pojutrze', temperature: '25 ℃', value: 25, type: 'cloud' },
 ];
 
-const Dashboard = () => {
+const LocationDetails = () => {
   const [current, setCurrent] = useState<null | CityData>(null);
   const [follwoingDays, setFollwojngDays] =
     useState<null | FollowingDayInterface>(null);
@@ -74,7 +74,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default LocationDetails;
 
 const styles = StyleSheet.create({
   container: {
