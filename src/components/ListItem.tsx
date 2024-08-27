@@ -27,12 +27,14 @@ const ListItem = ({
       >
         <Text style={styles.content}>{title}</Text>
         <Text style={[styles.content, styles.value]}>{value}</Text>
-        <Image
-          source={{ uri: `https:${condition}` }}
-          width={40}
-          height={40}
-          resizeMode="contain"
-        />
+        <View style={styles.condition}>
+          <Image
+            source={{ uri: `https:${condition}` }}
+            width={40}
+            height={40}
+            resizeMode="contain"
+          />
+        </View>
       </TouchableOpacity>
     </>
   );
@@ -60,5 +62,9 @@ const styles = StyleSheet.create({
   value: {
     textAlign: 'center',
     fontWeight: '600',
+  },
+  condition: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
 });

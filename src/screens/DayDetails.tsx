@@ -54,7 +54,7 @@ const DayDetails = () => {
             <ListItem
               key={hour.time}
               isLast={index === day.hour.length - 1}
-              title={hour.time}
+              title={dayjs(hour.time).format('HH:mm')}
               value={hour.temp_c}
               condition={hour.condition.icon}
             />

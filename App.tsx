@@ -14,6 +14,7 @@ const MyTheme = {
   colors: {
     ...DefaultTheme.colors,
     background: COLORS.backgroundColor,
+    card: COLORS.backgroundColor,
   },
 };
 
@@ -22,17 +23,8 @@ export default function App() {
     <NavigationContainer theme={MyTheme}>
       <SafeAreaProvider>
         <StatusBar style="light" />
-        <SafeAreaView style={styles.container}>
-          <Root />
-        </SafeAreaView>
+        <Root />
       </SafeAreaProvider>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.backgroundColor,
-  },
-});

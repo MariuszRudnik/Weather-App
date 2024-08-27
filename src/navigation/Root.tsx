@@ -5,6 +5,7 @@ import LocationDetails from '../screens/LocationDetails';
 import DayDetails from '../screens/DayDetails';
 import SelectLocation from '../screens/SelectLocation';
 import { ForecastDay } from '../types/api';
+import { COLORS } from '../themes/colors';
 
 export type RooStackParamList = {
   SelectLocation: undefined;
@@ -18,7 +19,12 @@ const Stack = createStackNavigator();
 const Root = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        title: '',
+        headerBackTitle: ' ',
+        headerShadowVisible: false,
+        headerTintColor: COLORS.text,
+      }}
       initialRouteName="SelectLocation"
     >
       <Stack.Screen name="LocationDetails" component={LocationDetails} />
