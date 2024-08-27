@@ -1,32 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import Feather from '@expo/vector-icons/Feather';
 import { COLORS } from '../themes/colors';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import isToday from 'dayjs/plugin/isToday';
 import { Day, ForecastDay } from '../types/api';
 import ListItem from './ListItem';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
+import { RooStackParamList } from '../navigation/Root';
 
 dayjs.extend(isToday);
 
 interface Props {
-  date: string;
-  day: Day;
+  day: ForecastDay;
   isLast: boolean;
+  locationName: string;
 }
 
-const FollowingDay = ({ date, day, isLast }: Props) => {
-  console.log(date);
-  const formattedDate = dayjs(date).isToday()
+const FollowingDay = ({ day, isLast, locationName }: Props) => {
+  const { navigate } =
+    useNavigation<NativeStackNavigationProp<RooStackParamList>>();
+  const formattedDate = dayjs(day.date).isToday()
     ? 'Dzisiaj'
-    : dayjs(date).locale('pl').format('dddd');
+    : dayjs(day.date).locale('pl').format('dddd');
   return (
     <ListItem
       isLast={isLast}
       title={formattedDate}
-      condition={day.condition.icon}
-      value={` ${Math.floor(day.mintemp_c)} ℃ - ${Math.floor(day.maxtemp_c)} ℃`}
+      condition={day.day.condition.icon}
+      value={` ${Math.floor(day.day.mintemp_c)} ℃ - ${Math.floor(day.day.maxtemp_c)} ℃`}
+      onPress={() => navigate('DayDetails', { day, locationName })}
     />
   );
 };

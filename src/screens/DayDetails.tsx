@@ -14,33 +14,14 @@ import { COLORS } from '../themes/colors';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import ListItem from '../components/ListItem';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RooStackParamList } from '../navigation/Root';
 
 const DayDetails = () => {
-  const [current, setCurrent] = useState<null | CityData>(null);
-  const [follwoingDays, setFollwojngDays] =
-    useState<null | FollowingDayInterface>(null);
+  const {
+    params: { day, locationName },
+  } = useRoute<any>();
 
-  useEffect(() => {
-    const init = async () => {
-      const respoonse = await fetchCityData();
-      setCurrent(respoonse);
-      const fetchFollowingDaysResponse = await fetchFollowingDays();
-      setFollwojngDays(fetchFollowingDaysResponse);
-    };
-    init();
-  }, []);
-
-  if (!current || !follwoingDays) {
-    return (
-      <ActivityIndicator
-        color={COLORS.sun}
-        size={'large'}
-        style={{ height: '100%' }}
-      />
-    );
-  }
-  const day = follwoingDays.forecast.forecastday[0];
-  const locationName = 'Warszawa';
   return (
     <FlatList
       data={day.hour}

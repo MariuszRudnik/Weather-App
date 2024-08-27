@@ -63,8 +63,9 @@ const LocationDetails = () => {
           {follwoingDays.forecast.forecastday.map((item, index, allDays) => (
             <FollowingDay
               key={item.date}
-              {...item}
+              day={item}
               isLast={index === allDays.length - 1}
+              locationName={current.location.name}
             />
           ))}
         </View>

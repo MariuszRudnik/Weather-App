@@ -4,11 +4,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LocationDetails from '../screens/LocationDetails';
 import DayDetails from '../screens/DayDetails';
 import SelectLocation from '../screens/SelectLocation';
+import { ForecastDay } from '../types/api';
 
 export type RooStackParamList = {
   SelectLocation: undefined;
   LocationDetails: undefined;
-  DayDetails: undefined;
+  DayDetails: {
+    day: ForecastDay;
+    locationName: string;
+  };
 };
 const Stack = createStackNavigator();
 const Root = () => {

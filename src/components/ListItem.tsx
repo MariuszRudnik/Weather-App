@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS } from '../themes/colors';
 
 interface ListItemProps {
@@ -7,20 +7,34 @@ interface ListItemProps {
   title: string;
   value: string | number;
   condition: string;
+  onPress?: () => void;
+  date?: string;
 }
 
-const ListItem = ({ isLast, title, value, condition }: ListItemProps) => {
+const ListItem = ({
+  isLast,
+  title,
+  value,
+  condition,
+  onPress,
+}: ListItemProps) => {
   return (
-    <View style={[styles.container, isLast && styles.separator]}>
-      <Text style={styles.content}>{title}</Text>
-      <Text style={[styles.content, styles.value]}>{value}</Text>
-      <Image
-        source={{ uri: `https:${condition}` }}
-        width={40}
-        height={40}
-        resizeMode="contain"
-      />
-    </View>
+    <>
+      <TouchableOpacity
+        style={[styles.container, isLast && styles.separator]}
+        disabled={!onPress}
+        onPress={onPress}
+      >
+        <Text style={styles.content}>{title}</Text>
+        <Text style={[styles.content, styles.value]}>{value}</Text>
+        <Image
+          source={{ uri: `https:${condition}` }}
+          width={40}
+          height={40}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
+    </>
   );
 };
 
