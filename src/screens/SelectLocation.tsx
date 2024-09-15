@@ -13,35 +13,34 @@ import { RooStackParamList } from '../navigation/Root';
 import { COLORS } from '../themes/colors';
 import { SearchInput } from '../components/SearchInput';
 
-interface ListItem {
-  title: string;
-  value: string;
-}
+import { useLocationList } from '../hooks/useLocationList';
+import { FontAwesome } from '@expo/vector-icons';
 
 const SelectLocation = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<RooStackParamList>>();
 
-  const [list, setList] = useState<ListItem[]>([]);
-
+  const { list, addToList, removeFormatList } = useLocationList();
   return (
     <FlatList
       data={list}
       ListHeaderComponent={
         <SearchInput
-          onSearch={(value) =>
-            setList([...list, { title: value, value: value }])
-          }
+          onSearch={(value) => addToList({ title: value, value: value })}
         />
       }
       ListHeaderComponentStyle={styles.header}
       contentContainerStyle={styles.container}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TouchableOpacity
           style={styles.item}
           onPress={() => navigate('LocationDetails', { location: item.value })}
         >
           <Text style={styles.itemColor}>{item.title}</Text>
+          <TouchableOpacity onPress={() => removeFormatList(item)}>
+            <FontAwesome name="trash" size={24} color={COLORS.error} />
+          </TouchableOpacity>
         </TouchableOpacity>
       )}
     />
@@ -73,6 +72,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 20,
     borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   itemColor: {

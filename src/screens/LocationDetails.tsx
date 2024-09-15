@@ -54,6 +54,7 @@ const LocationDetails = () => {
       />
     );
   }
+  //TODO: Add error handling
 
   return (
     <ScrollView>
