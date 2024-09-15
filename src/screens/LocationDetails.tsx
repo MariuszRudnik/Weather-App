@@ -13,6 +13,8 @@ import FollowingDay from '../components/FollowingDay';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
 import { CityData, FollowingDayInterface } from '../types/api';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RooStackParamList } from '../navigation/Root';
 
 const FOLLOWING_DAY = [
   { name: 'Dzisiaj', temperature: '22 ℃', value: 22, type: 'sun' },
@@ -22,6 +24,10 @@ const FOLLOWING_DAY = [
 
 const LocationDetails = () => {
   const [current, setCurrent] = useState<null | CityData>(null);
+  const {
+    params: { location },
+  } = useRoute<RouteProp<RooStackParamList, 'LocationDetails'>>();
+
   const [follwoingDays, setFollwojngDays] =
     useState<null | FollowingDayInterface>(null);
 
@@ -48,7 +54,7 @@ const LocationDetails = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.cityName}>{current.location.name}</Text>
+        <Text style={styles.cityName}>{location}</Text>
         <Text style={styles.temperature}>{current.current.temp_c} ℃</Text>
         <View style={styles.weatherContainer}>
           <Image
