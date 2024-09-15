@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
@@ -14,7 +15,8 @@ import { COLORS } from '../themes/colors';
 import { SearchInput } from '../components/SearchInput';
 
 import { useLocationList } from '../hooks/useLocationList';
-import { FontAwesome } from '@expo/vector-icons';
+import { Entypo, EvilIcons, FontAwesome } from '@expo/vector-icons';
+import SelectLocationByCoordinates from '../components/SelectLocationByCoordinates';
 
 const SelectLocation = () => {
   const { navigate } =
@@ -27,6 +29,7 @@ const SelectLocation = () => {
       ListHeaderComponent={
         <SearchInput
           onSearch={(value) => addToList({ title: value, value: value })}
+          rightElement={<SelectLocationByCoordinates />}
         />
       }
       ListHeaderComponentStyle={styles.header}
