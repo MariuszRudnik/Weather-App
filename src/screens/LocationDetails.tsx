@@ -12,7 +12,7 @@ import { COLORS } from '../themes/colors';
 import FollowingDay from '../components/FollowingDay';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
-import { CityData, FollowingDayInterface } from '../types/api';
+import { ApiError, CityData, FollowingDayInterface } from '../types/api';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RooStackParamList } from '../navigation/Root';
 
@@ -23,25 +23,29 @@ const FOLLOWING_DAY = [
 ];
 
 const LocationDetails = () => {
-  const [current, setCurrent] = useState<null | CityData>(null);
+  const [current, setCurrent] = useState<null | CityData | ApiError>(null);
+  const [follwoingDays, setFollwojngDays] = useState<
+    null | FollowingDayInterface | ApiError
+  >(null);
   const {
     params: { location },
   } = useRoute<RouteProp<RooStackParamList, 'LocationDetails'>>();
-
-  const [follwoingDays, setFollwojngDays] =
-    useState<null | FollowingDayInterface>(null);
-
   useEffect(() => {
     const init = async () => {
-      const respoonse = await fetchCityData();
+      const respoonse = await fetchCityData(location);
       setCurrent(respoonse);
-      const fetchFollowingDaysResponse = await fetchFollowingDays();
+      const fetchFollowingDaysResponse = await fetchFollowingDays(location);
       setFollwojngDays(fetchFollowingDaysResponse);
     };
     init();
   }, []);
 
-  if (!current || !follwoingDays) {
+  if (
+    !current ||
+    !follwoingDays ||
+    'error' in current ||
+    'error' in follwoingDays
+  ) {
     return (
       <ActivityIndicator
         color={COLORS.sun}
