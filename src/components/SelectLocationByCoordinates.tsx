@@ -1,11 +1,28 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { COLORS } from '../themes/colors';
+import * as Location from 'expo-location';
 
 const SelectLocationByCoordinates = () => {
+  const onButtonPress = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync();
+      console.log(location);
+    }
+    if (status === 'denied') {
+      Alert.alert(
+        'Brak dostępu do lokalizacji',
+        'Włącz lokalizację w ustawieniach',
+      );
+    } else {
+      console.log('Permission to access location was denied');
+    }
+  };
+
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={onButtonPress}>
       <EvilIcons name="location" size={24} color={COLORS.text} />
     </TouchableOpacity>
   );
