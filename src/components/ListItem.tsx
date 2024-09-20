@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS } from '../themes/colors';
 
-interface ListItemProps {
+export interface ListItemProps {
   isLast: boolean;
   title: string;
   value: string | number;

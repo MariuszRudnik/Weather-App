@@ -3,7 +3,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-interface ListItem {
+export interface ListItem {
   id: string;
   title: string;
   value: string;

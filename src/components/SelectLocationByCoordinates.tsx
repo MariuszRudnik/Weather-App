@@ -3,13 +3,42 @@ import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { COLORS } from '../themes/colors';
 import * as Location from 'expo-location';
+import { fetchCityData } from '../services/api';
+import { ListItem } from '../hooks/useLocationList';
 
-const SelectLocationByCoordinates = () => {
+interface SelectLocationByCoordinatesProps {
+  onLocationSelect: (cityData: Omit<ListItem, 'id'>) => void;
+}
+
+const SelectLocationByCoordinates = ({
+  onLocationSelect,
+}: SelectLocationByCoordinatesProps) => {
   const onButtonPress = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status === 'granted') {
-      const location = await Location.getCurrentPositionAsync();
-      console.log(location);
+      try {
+        const location = await Location.getCurrentPositionAsync();
+        const cityData = await fetchCityData(
+          `${location.coords.latitude},${location.coords.longitude}`,
+        );
+        onLocationSelect({
+          value: `${location.coords.latitude},${location.coords.longitude}`,
+          title:
+            'location' in cityData
+              ? cityData.location.name
+              : `${location.coords.latitude},${location.coords.longitude}`,
+        });
+      } catch (error: any) {
+        if (error.code === 'E_LOCATION_UNAVAILABLE') {
+          Alert.alert(
+            'Brak dostępu do lokalizacji',
+            'Włącz lokalizację w ustawieniach',
+          );
+        } else {
+          console.error(error);
+          Alert.alert('Błąd', 'Nie udało się pobrać danych lokalizacji');
+        }
+      }
     }
     if (status === 'denied') {
       Alert.alert(

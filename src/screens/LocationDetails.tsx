@@ -16,20 +16,15 @@ import { ApiError, CityData, FollowingDayInterface } from '../types/api';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RooStackParamList } from '../navigation/Root';
 
-const FOLLOWING_DAY = [
-  { name: 'Dzisiaj', temperature: '22 ℃', value: 22, type: 'sun' },
-  { name: 'Jutro', temperature: '24 ℃', value: 24, type: 'cloud' },
-  { name: 'Pojutrze', temperature: '25 ℃', value: 25, type: 'cloud' },
-];
-
 const LocationDetails = () => {
   const [current, setCurrent] = useState<null | CityData | ApiError>(null);
   const [follwoingDays, setFollwojngDays] = useState<
     null | FollowingDayInterface | ApiError
   >(null);
   const {
-    params: { location },
+    params: { location, title },
   } = useRoute<RouteProp<RooStackParamList, 'LocationDetails'>>();
+
   useEffect(() => {
     const init = async () => {
       const respoonse = await fetchCityData(location);
@@ -59,7 +54,7 @@ const LocationDetails = () => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.cityName}>{location}</Text>
+        <Text style={styles.cityName}>{title}</Text>
         <Text style={styles.temperature}>{current.current.temp_c} ℃</Text>
         <View style={styles.weatherContainer}>
           <Image

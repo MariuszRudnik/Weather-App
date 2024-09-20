@@ -17,19 +17,25 @@ import { SearchInput } from '../components/SearchInput';
 import { useLocationList } from '../hooks/useLocationList';
 import { Entypo, EvilIcons, FontAwesome } from '@expo/vector-icons';
 import SelectLocationByCoordinates from '../components/SelectLocationByCoordinates';
+import ListItem from '../components/ListItem';
 
 const SelectLocation = () => {
   const { navigate } =
     useNavigation<NativeStackNavigationProp<RooStackParamList>>();
 
   const { list, addToList, removeFormatList } = useLocationList();
+
   return (
     <FlatList
       data={list}
       ListHeaderComponent={
         <SearchInput
           onSearch={(value) => addToList({ title: value, value: value })}
-          rightElement={<SelectLocationByCoordinates />}
+          rightElement={
+            <SelectLocationByCoordinates
+              onLocationSelect={(item) => addToList(item)}
+            />
+          }
         />
       }
       ListHeaderComponentStyle={styles.header}
@@ -38,7 +44,12 @@ const SelectLocation = () => {
       renderItem={({ item }) => (
         <TouchableOpacity
           style={styles.item}
-          onPress={() => navigate('LocationDetails', { location: item.value })}
+          onPress={() =>
+            navigate('LocationDetails', {
+              location: item.value,
+              title: item.title,
+            })
+          }
         >
           <Text style={styles.itemColor}>{item.title}</Text>
           <TouchableOpacity onPress={() => removeFormatList(item)}>

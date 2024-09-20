@@ -9,7 +9,7 @@ import { COLORS } from '../themes/colors';
 
 export type RooStackParamList = {
   SelectLocation: undefined;
-  LocationDetails: { location: string };
+  LocationDetails: { location: string; title: string };
   DayDetails: {
     day: ForecastDay;
     locationName: string;
