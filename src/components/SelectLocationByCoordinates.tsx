@@ -5,6 +5,7 @@ import { COLORS } from '../themes/colors';
 import * as Location from 'expo-location';
 import { fetchCityData } from '../services/api';
 import { ListItem } from '../hooks/useLocationList';
+import { getLocation, showPermissionsDeniedAlert } from '../utils/location';
 
 interface SelectLocationByCoordinatesProps {
   onLocationSelect: (cityData: Omit<ListItem, 'id'>) => void;
@@ -17,25 +18,12 @@ const SelectLocationByCoordinates = ({
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status === 'granted') {
       try {
-        const location = await Location.getCurrentPositionAsync();
-        const cityData = await fetchCityData(
-          `${location.coords.latitude},${location.coords.longitude}`,
-        );
-        onLocationSelect({
-          value: `${location.coords.latitude},${location.coords.longitude}`,
-          title:
-            'location' in cityData
-              ? cityData.location.name
-              : `${location.coords.latitude},${location.coords.longitude}`,
-        });
+        const location = await getLocation();
+        onLocationSelect(location);
       } catch (error: any) {
         if (error.code === 'E_LOCATION_UNAVAILABLE') {
-          Alert.alert(
-            'Brak dostępu do lokalizacji',
-            'Włącz lokalizację w ustawieniach',
-          );
+          showPermissionsDeniedAlert();
         } else {
-          console.error(error);
           Alert.alert('Błąd', 'Nie udało się pobrać danych lokalizacji');
         }
       }
@@ -45,8 +33,6 @@ const SelectLocationByCoordinates = ({
         'Brak dostępu do lokalizacji',
         'Włącz lokalizację w ustawieniach',
       );
-    } else {
-      console.log('Permission to access location was denied');
     }
   };
 
