@@ -1,13 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import LocationDetails from './src/screens/LocationDetails';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS } from './src/themes/colors';
-import Footer from './src/components/Footer';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import DayDetails from './src/screens/DayDetails';
 import React from 'react';
 import Root from './src/navigation/Root';
+import { Provider as StoreProvider } from 'react-redux';
+import { store } from './src/store/store';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -23,7 +21,9 @@ export default function App() {
     <NavigationContainer theme={MyTheme}>
       <SafeAreaProvider>
         <StatusBar style="light" />
-        <Root />
+        <StoreProvider store={store}>
+          <Root />
+        </StoreProvider>
       </SafeAreaProvider>
     </NavigationContainer>
   );

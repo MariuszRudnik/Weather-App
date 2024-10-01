@@ -15,6 +15,7 @@ import Footer from '../components/Footer';
 import { ApiError, CityData, FollowingDayInterface } from '../types/api';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RooStackParamList } from '../navigation/Root';
+import { useGetCitiesDataQuery } from '../store/api';
 
 const LocationDetails = () => {
   const [current, setCurrent] = useState<null | CityData | ApiError>(null);
@@ -24,6 +25,10 @@ const LocationDetails = () => {
   const {
     params: { location, title },
   } = useRoute<RouteProp<RooStackParamList, 'LocationDetails'>>();
+
+  const query = useGetCitiesDataQuery({ location });
+
+  console.log(query);
 
   useEffect(() => {
     const init = async () => {
