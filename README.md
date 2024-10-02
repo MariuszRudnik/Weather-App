@@ -6,7 +6,7 @@
 ### Funkcjonalności
 - Wyświetlanie aktualnej temperatury i warunków pogodowych dla wybranej lokalizacji.
 - Prognoza pogody na najbliższe trzy dni.
-- Szczegółowe informacje o pogodzie w ciągu dnia (godzinowe prognozy).
+- Szczegółowe informacje o pogodzie w ciągu dnia.
 - Możliwość dodawania i usuwania lokalizacji.
 - Wsparcie dla systemów iOS i Android.
 
@@ -45,3 +45,7 @@ Android (przy użyciu Expo):
 ```bash 
 npm run android
 ```
+
+<div>
+  <img src="https://github.com/MariuszRudnik/Weather-App/blob/main/1.png?raw=true"/>
+</div>
