@@ -35,6 +35,12 @@
     ```bash
     npm install
     ```
+   4.  Zarejestruj się na stronie WeatherAPI.com i utwórz darmowe konto, aby uzyskać klucz API potrzebny do pobierania danych pogodowych.
+5. Skopiuj plik .env.template i zmień jego nazwę na .env:
+   ```bash
+   cp .env.template .env
+   ``` 
+   6. W pliku .env wprowadź swój klucz API z WeatherAPI:
 
 ### Uruchomienie
 iOS (przy użyciu Expo):
