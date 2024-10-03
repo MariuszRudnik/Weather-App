@@ -5,7 +5,8 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import Root from './src/navigation/Root';
 import { Provider as StoreProvider } from 'react-redux';
-import { store } from './src/store/store';
+import { persistor, store } from './src/store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -22,7 +23,9 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar style="light" />
         <StoreProvider store={store}>
-          <Root />
+          <PersistGate persistor={persistor}>
+            <Root />
+          </PersistGate>
         </StoreProvider>
       </SafeAreaProvider>
     </NavigationContainer>

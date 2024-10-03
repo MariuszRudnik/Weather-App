@@ -40,6 +40,7 @@
    ```bash
    cp .env.template .env
    ``` 
+   
 6. W pliku .env wprowadź swój klucz API z WeatherAPI:
 
 ### Uruchomienie

@@ -1,6 +1,7 @@
 import { Alert } from 'react-native';
 import * as Location from 'expo-location';
-import { fetchCityData } from '../services/api';
+import { weatherApi } from '../store/api';
+import { store } from '../store/store';
 
 export const showPermissionsDeniedAlert = () => {
   Alert.alert(
@@ -17,11 +18,16 @@ export const getLocation = async () => {
   };
 };
 export const getLocationName = async (location: Location.LocationObject) => {
-  const cityData = await fetchCityData(
-    `${location.coords.latitude},${location.coords.longitude}`,
-  );
-  if ('location' in cityData) {
+  try {
+    const cityData = await store
+      .dispatch(
+        weatherApi.endpoints.getCitiesData.initiate({
+          location: `${location.coords.latitude},${location.coords.longitude}`,
+        }),
+      )
+      .unwrap();
     return cityData.location.name;
+  } catch (error) {
+    return `${location.coords.latitude},${location.coords.longitude}`;
   }
-  return `${location.coords.latitude},${location.coords.longitude}`;
 };
